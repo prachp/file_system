@@ -1,0 +1,35 @@
+.folder-tree .folder {
+  list-style-type: none;
+}
+.folder-tree {
+  padding-left: 0;
+}
+.folder-tree .list {
+  padding-left: 20px;
+}
+
+.folder-tree .folder-name,
+.folder-tree .indicator-button {
+  border: 0;
+  background-color: transparent;
+  cursor: pointer;
+  padding: 0;
+}
+
+.folder-tree .indicator-button {
+  position: relative;
+  display: inline-block;
+  width: 0; 
+  height: 0; 
+  top: -5px;
+  border: 5px solid transparent;
+  border-left: 5px solid #333;
+}
+
+.folder-tree .expanded {
+  top: -3px;
+  border: 5px solid transparent;
+  border-top: 5px solid #333;
+}
+
+
