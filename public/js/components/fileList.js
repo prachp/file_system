@@ -60,7 +60,7 @@
             <td class="column">${icon}</td>
             <td class="column">${name}</td>
             <td class="column">${formatDate(modified)}</td>
-            <td class="column">${formatSize(size)}</td>
+            <td class="column file-size">${formatSize(size)}</td>
           </tr>
         `;
       });
@@ -68,11 +68,11 @@
     const table = `
         <table class="file-list">
           <thead>
-            <tr>
-              <th></th>
+            <tr class="header-row">
+              <th class="icon-header"></th>
               <th class="header name">Name</th>
               <th class="header">Date Modified</th>
-              <th class="header">File Size</th>
+              <th class="header file-size">File Size</th>
             </tr>
           </thead>
           <tbody>

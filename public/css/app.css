@@ -1,8 +1,29 @@
+/* Main app */
+#container {
+  display: flex;
+  height: 50vh;
+}
+
+#tree {
+  width: 400px;
+}
+
+#list {
+  flex-grow: 2;
+  border-left: 0;
+}
+
+.box {
+  border: 2px solid #4cb5f5;
+}
+
+/* Folder Tree Styles */
 .folder-tree .folder {
   list-style-type: none;
 }
 .folder-tree {
-  padding-left: 0;
+  padding-left: 5px;
+  margin: 0;
 }
 .folder-tree .list {
   padding-left: 20px;
@@ -60,6 +81,11 @@
 }
 
 /* FileList Styles */
+
+.file-list {
+  border-collapse: collapse;
+  width: 100%;
+}
 .file-list .row,
 .file-list .column {
   cursor: pointer;
@@ -69,13 +95,28 @@
   width: 25px;
 }
 
+.file-list .icon-header {
+  width: 30px;
+}
+
+.file-list .header-row {
+  border-bottom: 3px solid #4cb5f5;
+}
+
 .file-list .header {
   text-align: start;
   min-width: 200px;
+  padding: 0;
 }
 
-.file-list .header.name {
-  min-width: 200px;
+.file-list .file-size {
+  width: 100px;
+  min-width: 0;
+}
+
+.file-list .column.file-size {
+  text-align: right;
+  padding-right: 5px;
 }
 
 
