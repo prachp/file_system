@@ -1,4 +1,4 @@
-const container = document.getElementById("container");
+const treeContainer = document.getElementById("tree");
 
 const TEST_DATA =  [
     {
@@ -65,7 +65,7 @@ const onSelect = function(name) {
 }
 
 const config = {
-  container: container,
+  container: treeContainer,
   expandedSet: expandedSet,
   onToggle: onToggle,
   onSelect: onSelect,
@@ -79,3 +79,15 @@ folderTree.render();
 addEventListener("beforeunload", (event) => {
   folderTree.unload();
 });
+
+/// List ///
+const listContainer = document.getElementById('list');
+const listConfig = {
+  container: listContainer,
+  nodes: TEST_DATA,
+  onSelect: (name) => {console.log(name);}
+};
+
+const list = new FileList(listConfig);
+list.init();
+list.render();

@@ -36,4 +36,23 @@
   border-top: 5px solid #333;
 }
 
+/* FileList Styles */
+.file-list .row,
+.file-list .column {
+  cursor: pointer;
+}
+
+.file-list .icon {
+  width: 25px;
+}
+
+.file-list .header {
+  text-align: start;
+  min-width: 200px;
+}
+
+.file-list .header.name {
+  min-width: 200px;
+}
+
 
