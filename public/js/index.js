@@ -116,7 +116,7 @@ const listContainer = document.getElementById('list');
 const listConfig = {
   container: listContainer,
   nodes: TEST_DATA,
-  onSelect: (name) => {console.log(name);}
+  onSelect: (name) => {folderTree.select(name);}
 };
 
 list = new FileList(listConfig);

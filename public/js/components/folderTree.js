@@ -2,6 +2,8 @@
   const FOLDER_BUTTON = "folder-button";
   const INDICATOR_BUTTON = 'indicator-button';
 
+  const folderIcon = '<img class="icon" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAABCUlEQVR4nO2VMWrDQBBFp8gRQhoFV5a0pM0Zci/fRAK7CcJd0gXcRfKALxFIZ4OdA+gbxZ1A3nU1A/4Pfv/f7OyuCCGEEDICS3lGJQ1q+UMtSEolC3FTvpZDcnFvErhM/vbyXiRwy9p4lMBQYPUAfGVAVwAabNMVPTazX3w+vaUJDOXb3L64jtLmPT4eX+MCw+Sty+pENrOfuICHtdGpUyj6uIB1Sb0eCoAnELhCV7FeEfASq/2UwWdU7ScNfmTqMxLDuiAooPZTBldI7ScNXmL1GbmHZ/RkXRJT2YZjXGBbrh0LNAkCoYCWe/OyOk55wO5lHhX4l/jOM2h4d7JOp2HyyeUJIYTcFWcLXG7i+rfwxwAAAABJRU5ErkJggg==" alt="folder-invoices--v1"></img>';
+
   const FolderTree = function (config) {
     this.container = config.container;
     this.data = config.data;
@@ -21,7 +23,10 @@
       return;
     }
     this.clickHandler = (e) => {
-      const el = e.target;
+      let el = e.target;
+      while (el !== this.container && !el.getAttribute('data-cta')) {
+        el = el.parentNode;
+      }
       const type = el.getAttribute("data-type");
       if (type === FOLDER_BUTTON) {
         const name = el.getAttribute("data-name");
@@ -41,6 +46,10 @@
 
   FolderTree.prototype.toggle = function (name) {
     const indicatorBtn = this.container.querySelector(`.indicator-button[data-name="${name}"]`);
+    if (!indicatorBtn) {
+      // Can't toggle it as it's not rendered
+      return;
+    }
     const container = indicatorBtn.parentNode.parentNode;
     if (indicatorBtn.className.includes('expanded')) {
       indicatorBtn.classList.remove('expanded');
@@ -66,7 +75,7 @@
       const parent = nameBtn.parentNode;
       parent.classList.add('selected');
       const indicatorBtn = parent.querySelector(`.indicator-button`);
-      if (!indicatorBtn.className.includes('expanded')) {
+      if (indicatorBtn && !indicatorBtn.className.includes('expanded')) {
         // Expand the folder if it's not expanded.
         this.toggle(name);
       }
@@ -102,23 +111,28 @@
     }
     let subFolders = "";
     let indicatorClass = "";
-    const children = folder.children;
+    const children = folder.children ? folder.children.filter((item) => item.type === "folder") : null;
+    if (this.expandedSet.has(name)) {
+      indicatorClass = "expanded";
+    }
+    // Don't render the indicator if there is no folder as children
+    const indicatorBtn = children && children.length ? `<button class="${indicatorClass} indicator-button" data-cta={true} data-type="${INDICATOR_BUTTON}" data-name="${name}">
+        <span class="triangle"></span>
+      </button>` : '<span class="indicator-placeholder"></span>';
     // render children only when it's expanded and has children
     if (children && this.expandedSet.has(folder.name) && children.length) {
       subFolders = this._renderSubFolders(name, children);
     }
-    // We still want to indicate that it's expanded even when it doesn't have children
-    if (this.expandedSet.has(name)) {
-      indicatorClass = "expanded";
-    }
+    
+    
 
     const selected = this.selected === name ? 'selected' : '';
     return `<li class="folder">
     <div class="name-container ${selected}">
-      <button class="${indicatorClass} indicator-button" data-type="${INDICATOR_BUTTON}" data-name="${name}">
-         </button>
-      <button class="folder-name" data-type="${FOLDER_BUTTON}" data-name="${name}">
-        ${name}
+      ${indicatorBtn}
+      <button class="folder-name" data-cta={true} data-type="${FOLDER_BUTTON}" data-name="${name}">
+        ${folderIcon}
+        <span>${name}</span>
       </button>
       </div>
       ${subFolders}
