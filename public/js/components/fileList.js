@@ -25,6 +25,7 @@
   const FileList = function ({container, onSelect}) {
     this.container = container;
     this.onSelect = onSelect;
+    this._nodeMap = new Map();
   };
 
   FileList.prototype.init = function () {
@@ -36,6 +37,7 @@
 
       const name = el.getAttribute('data-name');
       this.onSelect(name);
+      this.render(this._nodeMap.get(name).children);
        
     };
 
@@ -52,6 +54,7 @@
       rows = nodes.map((node) => {
       const { name, modified, size, type } = node;
       const icon = type === 'file' ? fileIcon : folderIcon;
+      this._nodeMap.set(name, node);
       return `
           <tr class="row" data-cta="true" data-name="${name}">
             <td class="column">${icon}</td>
