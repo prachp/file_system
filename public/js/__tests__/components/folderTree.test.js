@@ -154,4 +154,23 @@ describe('Folder Tree', () => {
       expect(mockOnSelect.mock.calls[0][0]).toBe('Documents');
     });
 
+    test('Select visible nodes', () => {
+      const tree = setup();
+      tree.toggle('Documents');
+      tree.select('Projects');
+      const selected = document.querySelector('.selected .folder-name[data-name="Projects"]');
+      expect(selected).toBeTruthy();
+      tree.select('Documents');
+      expect(document.getElementsByClassName('selected').length).toBe(1);
+    });
+
+    test('Select invisible nodes', () => {
+      const tree = setup();
+      tree.toggle('Documents');
+      tree.toggle('Documents');
+      tree.select('Projects');
+      const selected = document.querySelector('.selected .folder-name[data-name="Projects"]');
+      expect(selected).toBeTruthy();
+    });
+
   });

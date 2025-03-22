@@ -60,7 +60,8 @@ const onToggle = function(name) {
 let selectedFolder = null;
 const onSelect = function(name) {
   selectedFolder = name;
-  //folderTree.select();
+  expandedSet.add(name);
+  folderTree.select(name);
 }
 
 const config = {

@@ -16,6 +16,10 @@
   padding: 0;
 }
 
+.folder-tree .name-container.selected {
+  background-color: #ccc;
+}
+
 .folder-tree .indicator-button {
   position: relative;
   display: inline-block;
