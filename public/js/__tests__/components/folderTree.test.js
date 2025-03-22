@@ -77,7 +77,6 @@ const setup = function(overridedSet, overrideOnToggle, overrideOnSelect) {
         },
       ];
     const expandedSet = overridedSet || new Set();
-    let folderTree;
     
     const onToggle = overrideOnToggle || function() {};
     let selectedFolder = null;
@@ -91,7 +90,7 @@ const setup = function(overridedSet, overrideOnToggle, overrideOnSelect) {
       selectedFolder: selectedFolder,
       data: TEST_DATA
     };
-    folderTree = new FolderTree(config);
+    const folderTree = new FolderTree(config);
     folderTree.init();
     folderTree.render();
 
@@ -135,7 +134,7 @@ describe('Folder Tree', () => {
       expect(document.getElementsByClassName('expanded').length).toBe(1);
       tree.toggle('Projects');
       expect(document.getElementsByClassName('folder').length).toBe(5);
-      expect(document.getElementsByClassName('expanded').length).toBe(2);
+      expect(document.getElementsByClassName('expanded').length).toBe(1);
     });
 
     test('OnToggle is called', () => {

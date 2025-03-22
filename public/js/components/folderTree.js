@@ -27,6 +27,9 @@
       while (el !== this.container && !el.getAttribute('data-cta')) {
         el = el.parentNode;
       }
+      if (!el.getAttribute('data-cta')) {
+        return;
+      }
       const type = el.getAttribute("data-type");
       if (type === FOLDER_BUTTON) {
         const name = el.getAttribute("data-name");
