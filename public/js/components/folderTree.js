@@ -25,7 +25,7 @@
       const type = el.getAttribute("data-type");
       if (type === FOLDER_BUTTON) {
         const name = el.getAttribute("data-name");
-        this.onSelect(name);
+        this.onSelect(this.folderMap.get(name));
       } else if (type === INDICATOR_BUTTON) {
         const name = el.getAttribute("data-name");
         this.onToggle(name);

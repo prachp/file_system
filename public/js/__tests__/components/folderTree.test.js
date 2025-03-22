@@ -151,7 +151,7 @@ describe('Folder Tree', () => {
       setup(null, null, mockOnSelect);
       document.querySelector('.folder-name[data-name="Documents"]').click();
       expect(mockOnSelect.mock.calls.length).toBe(1);
-      expect(mockOnSelect.mock.calls[0][0]).toBe('Documents');
+      expect(mockOnSelect.mock.calls[0][0].name).toBe('Documents');
     });
 
     test('Select visible nodes', () => {

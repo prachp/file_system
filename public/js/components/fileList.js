@@ -16,15 +16,14 @@
       index++;
     }
 
-    return ('' + Math.floor(size)) + prefixes[index] + 'B';
+    return ('' +size.toFixed(0)) + ' ' + prefixes[index] + 'B';
   };
 
   // Icon from Icons8.com
   const folderIcon = '<img class="icon" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAABCUlEQVR4nO2VMWrDQBBFp8gRQhoFV5a0pM0Zci/fRAK7CcJd0gXcRfKALxFIZ4OdA+gbxZ1A3nU1A/4Pfv/f7OyuCCGEEDICS3lGJQ1q+UMtSEolC3FTvpZDcnFvErhM/vbyXiRwy9p4lMBQYPUAfGVAVwAabNMVPTazX3w+vaUJDOXb3L64jtLmPT4eX+MCw+Sty+pENrOfuICHtdGpUyj6uIB1Sb0eCoAnELhCV7FeEfASq/2UwWdU7ScNfmTqMxLDuiAooPZTBldI7ScNXmL1GbmHZ/RkXRJT2YZjXGBbrh0LNAkCoYCWe/OyOk55wO5lHhX4l/jOM2h4d7JOp2HyyeUJIYTcFWcLXG7i+rfwxwAAAABJRU5ErkJggg==" alt="folder-invoices--v1"></img>';
   const fileIcon = '<img class="icon" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAn0lEQVR4nO3SMQ7CQAxE0T1+StfJjaaipPUNaChAgqWnQIqscYL0R/IBnvzHYMy70GOabvlbwHp59iHCALjeXnPrQoQBkPd3HyJMgDZEGAHZgXAD0o3oAKQT0QVIF6ITkA5ENyC/EKcE7LkBQHxgklBlJCQSqo2EREK1kZBIqDYSEgnVRkIiodpISCRUGwmJhGojIZFQbSSkgxNibPzcB2CK7Dr8knMRAAAAAElFTkSuQmCC" alt="file"></img>';
-  const FileList = function ({container, nodes, onSelect}) {
+  const FileList = function ({container, onSelect}) {
     this.container = container;
-    this.nodes = nodes;
     this.onSelect = onSelect;
   };
 
@@ -47,8 +46,10 @@
     this.container.removeEventListener("dblclick", this.dblClickHandler);
   };
 
-  FileList.prototype.render = function () {
-    const rows = this.nodes.map((node) => {
+  FileList.prototype.render = function (nodes) {
+    let rows = [];
+    if (nodes) {
+      rows = nodes.map((node) => {
       const { name, modified, size, type } = node;
       const icon = type === 'file' ? fileIcon : folderIcon;
       return `
@@ -59,7 +60,8 @@
             <td class="column">${formatSize(size)}</td>
           </tr>
         `;
-    });
+      });
+    }
     const table = `
         <table class="file-list">
           <thead>
